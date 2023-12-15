@@ -1,74 +1,76 @@
 'use client'
 import React from "react";
+import Image from 'next/image';
+import Link from 'next/link';
+import { useState } from 'react';
 
-import {NavbarMenuToggle, NavbarMenuItem, NavbarMenu, Navbar, NavbarBrand, NavbarContent, NavbarItem, Link, Button} from "@nextui-org/react";
-// import {AcmeLogo} from "./AcmeLogo.jsx";
-
-export default function App() {
-  const [isMenuOpen, setIsMenuOpen] = React.useState(false);
-
-  const menuItems = [
-    "Work",
-    "Reel",
-    "Awards",
-    "About",
-    "Contact",
-  ];
-
+function NavBar() {
+  const [navbar, setNavbar] = useState(false);
   return (
-    <Navbar onMenuOpenChange={setIsMenuOpen}>
-      <NavbarContent>
-        <NavbarMenuToggle
-          aria-label={isMenuOpen ? "Close menu" : "Open menu"}
-          className="sm:hidden"
-        />
-      </NavbarContent>
-
-      <NavbarContent className="hidden sm:flex gap-4" justify="center">
-        <NavbarItem>
-          <Link color="foreground" href="#">
-            Work
-          </Link>
-        </NavbarItem>
-        <NavbarItem isActive>
-          <Link href="#" aria-current="page">
-            Reel
-          </Link>
-        </NavbarItem>
-        <NavbarItem>
-          <Link color="foreground" href="#">
-          Awards
-          </Link>
-        </NavbarItem>
-        <NavbarItem>
-          <Link color="foreground" href="#">
-          About
-          </Link>
-        </NavbarItem>
-        <NavbarItem>
-          <Link color="foreground" href="#">
-          Contact
-          </Link>
-        </NavbarItem>
-      </NavbarContent>
-      <NavbarContent justify="end">
-      </NavbarContent>
-      <NavbarMenu>
-        {menuItems.map((item, index) => (
-          <NavbarMenuItem key={`${item}-${index}`}>
-            <Link
-              color={
-                index === 2 ? "primary" : index === menuItems.length - 1 ? "danger" : "foreground"
-              }
-              className="w-full"
-              href="#"
-              size="lg"
+    <div>
+      <nav className="w-full bg-black fixed top-0 left-0 right-0 z-10">
+        <div className="justify-between px-4 mx-auto md:items-center md:px-8">
+          <div>
+            <div className="flex items-center justify-between py-3 md:py-5 md:block">
+            <div className="md:hidden">
+                <button
+                  className="p-2 text-gray-700 rounded-md outline-none focus:border-gray-400 focus:border"
+                  onClick={() => setNavbar(!navbar)}
+                >
+                  {navbar ? (
+                    <Image src="/close.svg" width={30} height={30} alt="logo" />
+                  ) : (
+                    <Image
+                      src="/hamburger-menu.svg"
+                      width={30}
+                      height={30}
+                      alt="logo"
+                      className="focus:border-none active:border-none"
+                    />
+                  )}
+                </button>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div
+              className={`flex-1 justify-self-center pb-3 mt-8 md:block md:pb-0 md:mt-0 ${
+                navbar ? 'p-12 md:p-0 block' : 'hidden'
+              }`}
             >
-              {item}
-            </Link>
-          </NavbarMenuItem>
-        ))}
-      </NavbarMenu>
-    </Navbar>
+              <ul className="h-screen md:h-auto items-center justify-center md:flex ">
+                <li className="pb-6 text-xl text-white py-2 md:px-6 text-center border-b-2 md:border-b-0  hover:bg-black-900  border-black-900  md:hover:text-black-600 md:hover:bg-transparent">
+                  <Link href="#about" onClick={() => setNavbar(!navbar)}>
+                    work
+                  </Link>
+                </li>
+                <li className="pb-6 text-xl text-white py-2 px-6 text-center  border-b-2 md:border-b-0  hover:bg-black-600  border-black-900  md:hover:text-black-600 md:hover:bg-transparent">
+                  <Link href="#blog" onClick={() => setNavbar(!navbar)}>
+                    reel
+                  </Link>
+                </li>
+                <li className="pb-6 text-xl text-white py-2 px-6 text-center  border-b-2 md:border-b-0  hover:bg-black-600  border-black-900  md:hover:text-black-600 md:hover:bg-transparent">
+                  <Link href="#contact" onClick={() => setNavbar(!navbar)}>
+                    awards
+                  </Link>
+                </li>
+                <li className="pb-6 text-xl text-white py-2 px-6 text-center  border-b-2 md:border-b-0  hover:bg-black-600  border-black-900  md:hover:text-black-600 md:hover:bg-transparent">
+                  <Link href="#projects" onClick={() => setNavbar(!navbar)}>
+                    about
+                  </Link>
+                </li>
+                <li className="pb-6 text-xl text-white py-2 px-6 text-center  border-b-2 md:border-b-0  hover:bg-black-600  border-black-900  md:hover:text-black-600 md:hover:bg-transparent">
+                  <Link href="#projects" onClick={() => setNavbar(!navbar)}>
+                    contact
+                  </Link>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </div>
   );
 }
+
+export default NavBar;
